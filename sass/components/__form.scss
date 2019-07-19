@@ -1,0 +1,103 @@
+.form {
+
+    &__group:not(:last-child) {
+        margin-bottom: 2rem;
+    }
+
+    &__input {
+        font-size: 1.5rem;
+        font-family: inherit; //forces the form input to inherit font family
+        color: inherit;  //forces the form input to inherit color
+        padding: 1.5rem 2rem; //Use for buttons, a bit more padding on sides than the top
+        border-radius: 2px;
+        background-color: rgba($color-white, .5);
+        border: none;
+        border-bottom: 3px solid transparent;
+        width: 90%;
+        display: block;
+        transition: all .3s;
+
+            //:: means psuedo element
+        &::-webkit-input-placeholder {
+            color: $color-grey-dark-2;
+        }
+
+        &:focus:invalid {
+            border-bottom: 3px solid $color-secondary-dark;
+        }
+
+        &:focus {
+            outline: none; //Always show focused form elements for people who dont use a mouse in some way
+            box-shadow: 0 1rem 2rem rgba($color-black, .1);
+            border-bottom: 3px solid $color-primary;
+            width: 100%;
+            display: block;
+    
+        }
+    }
+
+    &__label {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-left: 2rem;
+        margin-top: .7rem;
+        display: block;
+        transition: all .3s;
+
+    }
+
+    //active when the placeholder is shown on input and the + sign is a adjacent sibling selector and selects the label so the label acts when the placeholder of the input is shown
+    &__input:placeholder-shown + &__label {
+        opacity: 0; //Removes color from element
+        visibility: hidden; //Removes element from the page flow
+        transform: translateY(-4rem);
+    }
+
+    &__radio-group {
+        width: 49%;
+        display: inline-block;
+    }
+
+    &__radio-input {
+        display: none;
+    }
+
+    &__radio-label {
+        font-size: $default-font-size;
+        cursor: pointer; //Make it look like a link with changing the cursor to a hand
+        position: relative;
+        padding-left: 4.5rem;
+    }
+
+    &__radio-button {
+
+        height: 3rem;
+        width: 3rem;
+        border: 5px solid $color-primary;
+        border-radius: 50%;
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        top: -.4rem;
+        //Creating a psuedo element in css rather than html so it can show dynamically
+        &::after {
+            content: "";
+            display: block;
+            height: 1.3rem;
+            width: 1.3rem;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: $color-primary;
+            opacity: 0;
+            transition: opacity .2s;
+        }
+    }
+
+    //All checked inputs of going from the radio label to the label sibling which is the radio-button to change the inside circle opacity
+    &__radio-input:checked ~ &__radio-label &__radio-button::after {
+        opacity: 1;
+    } 
+}
